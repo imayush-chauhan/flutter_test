@@ -4,7 +4,7 @@ import 'package:audioplayers/audioplayers.dart';
 class AudioPlayerFF extends StatefulWidget {
   final double? width;
   final double? height;
-  final String url;
+  final List<String> url;
   final String? image;
   final bool? stop;
 
@@ -21,12 +21,18 @@ class AudioPlayerFF extends StatefulWidget {
 
 class _AudioPlayerFFState extends State<AudioPlayerFF> {
 
-  AudioPlayer audioPlayer = AudioPlayer(playerId: "0");
+  AudioPlayer audioPlayer = AudioPlayer(playerId: "1");
 
   late AnimationController controller;
 
   Duration duration = Duration.zero;
   Duration position = Duration.zero;
+
+  String s = "";
+
+  int inx = 0;
+
+  bool loop = false;
 
   @override
   void initState() {
@@ -35,6 +41,9 @@ class _AudioPlayerFFState extends State<AudioPlayerFF> {
       setState((){
         Data.isPlaying = state.index;
       });
+      if(loop == true && state.name == "COMPLETED"){
+        play();
+      }
       print(state.name);
     });
 
@@ -44,13 +53,15 @@ class _AudioPlayerFFState extends State<AudioPlayerFF> {
       });
     });
 
-
-
     audioPlayer.onAudioPositionChanged.listen((newDuration) {
       setState((){
         position = newDuration;
       });
     });
+
+    // audioPlayer.setUrl(widget.url[inx]);
+
+    s = widget.image ?? "https://source.unsplash.com/random/1920x1080/?wallpaper,landscape";
 
     super.initState();
   }
@@ -72,6 +83,24 @@ class _AudioPlayerFFState extends State<AudioPlayerFF> {
     setState((){
       audioPlayer.pause();
       // Navigator.of(context).pop();
+    });
+  }
+
+  stop(){
+    setState((){
+      audioPlayer.stop();
+      // Navigator.of(context).pop();
+    });
+  }
+
+  play(){
+    stop();
+    Future.delayed(Duration(milliseconds: 100),(){
+      setState((){
+        audioPlayer.play(widget.url[inx]).then((value) {
+          s = "https://source.unsplash.com/random/1920x1080/?wallpaper,landscape";
+        });
+      });
     });
   }
 
@@ -253,19 +282,30 @@ class _AudioPlayerFFState extends State<AudioPlayerFF> {
       children: [
 
         IconButton(
-          onPressed: (){},
+          onPressed: (){
+            setState((){
+              loop = !loop;
+            });
+          },
           icon: Icon(
             Icons.loop,
-            color: Colors.orange,
+            color: loop == false ? Colors.black.withOpacity(0.3) : Colors.orange,
             size: mediaQW*0.065,
           ),
         ),
 
         IconButton(
-          onPressed: (){},
+          onPressed: (){
+            setState((){
+              if(inx > 0){
+                inx--;
+                play();
+              }
+            });
+          },
           icon: Icon(
             Icons.skip_previous,
-            color: Colors.orange,
+            color: inx > 0 ? Colors.orange : Colors.black.withOpacity(0.3),
             size: mediaQW*0.07,
           ),
         ),
@@ -275,7 +315,7 @@ class _AudioPlayerFFState extends State<AudioPlayerFF> {
             if(Data.isPlaying == 1){
               await audioPlayer.pause();
             }else{
-              await audioPlayer.play(widget.url);
+              await audioPlayer.play(widget.url[inx]);
             }
             print(Data.isPlaying);
           },
@@ -303,8 +343,8 @@ class _AudioPlayerFFState extends State<AudioPlayerFF> {
               ),
 
               Data.isPlaying == 1 ?
-              Icon(Icons.play_arrow,color: Colors.orange,size: mediaQW*0.065,) :
-              Icon(Icons.pause,color: Colors.orange,size: mediaQW*0.065,),
+              Icon(Icons.pause,color: Colors.orange,size: mediaQW*0.065,) :
+              Icon(Icons.play_arrow,color: Colors.orange,size: mediaQW*0.065,),
 
               // AnimatedIcon(
               //   color: Colors.orange,
@@ -320,10 +360,18 @@ class _AudioPlayerFFState extends State<AudioPlayerFF> {
         ),
 
         IconButton(
-          onPressed: (){},
+          onPressed: (){
+            print("hmm");
+            setState((){
+              if(inx < widget.url.length - 1){
+                inx++;
+                play();
+              }
+            });
+          },
           icon: Icon(
             Icons.skip_next,
-            color: Colors.orange,
+            color: inx < widget.url.length - 1 ? Colors.orange : Colors.black.withOpacity(0.3),
             size: mediaQW*0.07,
           ),
         ),

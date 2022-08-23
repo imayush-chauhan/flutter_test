@@ -19,6 +19,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
+  List<String> s = [
+    "https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba-online-audio-converter.com_-1.wav",
+    "https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba-online-audio-converter.com_-1.wav",
+    "https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba-online-audio-converter.com_-1.wav",
+    "https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba-online-audio-converter.com_-1.wav",
+    "https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba-online-audio-converter.com_-1.wav",
+  ];
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -28,7 +37,7 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
       ),
     home: AudioPlayerFF(
-      url: 'https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba-online-audio-converter.com_-1.wav',
+      url: s,
       image: "https://source.unsplash.com/random/1920x1080/?wallpaper,landscape",
       stop: false,
     ),

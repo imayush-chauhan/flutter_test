@@ -25,7 +25,7 @@ class _MusicPlayerState extends State<MusicPlayer> with WidgetsBindingObserver{
   @override
   void initState() {
 
-    s = widget.url.toString();
+    s = widget.url ?? "https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba-online-audio-converter.com_-1.wav";
 
     audioPlayer.onPlayerStateChanged.listen((state) {
       setState((){
