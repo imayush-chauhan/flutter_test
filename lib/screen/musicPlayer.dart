@@ -5,7 +5,7 @@ class MusicPlayer extends StatefulWidget {
 
   final double? width;
   final double? height;
-  final String url;
+  final String? url;
   final double? volume;
   final bool? play;
   final Color? main;

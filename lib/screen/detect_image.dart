@@ -31,7 +31,6 @@ class _StaticImageState extends State<StaticImage> {
   }
 
   String key = "";
-
   List imgLabel = [];
   String? result;
 
