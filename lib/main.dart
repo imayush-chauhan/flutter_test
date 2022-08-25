@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:test_ayu/screen/RoundPlayer.dart';
-import 'package:test_ayu/screen/animatedProgressBar.dart';
-import 'package:test_ayu/screen/audioPlayer.dart';
-import 'package:test_ayu/screen/musicPlayer.dart';
-import 'package:test_ayu/screen/play.dart';
+import 'package:test_ayu/audio/audioPlayff.dart';
+import 'package:test_ayu/bluetooth.dart';
+import 'package:test_ayu/screen/camera.dart';
 
 void main() async{
 
@@ -36,11 +34,19 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-    home: AudioPlayerFF(
-      url: s,
-      image: "https://source.unsplash.com/random/1920x1080/?wallpaper,landscape",
-      stop: false,
-    ),
+
+    // home: GetImage(),
+    // home: BlueFlutter(),
+    // home: AudioPlayerFF(
+    //   url: "https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba-online-audio-converter.com_-1.wav",
+    //   image: "https://source.unsplash.com/random/1920x1080/?wallpaper,landscape",
+    // ),
+
+    // home: AudioPlayerFF(
+    //   url: s,
+    //   image: "https://source.unsplash.com/random/1920x1080/?wallpaper,landscape",
+    //   stop: false,
+    // ),
     //   home: MusicPlayer(url: "https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba-online-audio-converter.com_-1.wav",),
       // home: AnimatedProgress(sec: 20),
       // home: Play(

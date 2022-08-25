@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class Play extends StatefulWidget {
-  final double? width;
-  final double? height;
+  final double width;
+  final double height;
   final int? sec;
   final int? addSec;
   final bool? play;
@@ -12,12 +12,12 @@ class Play extends StatefulWidget {
   final Color? innerColor;
 
   Play({
-    this.height,
+    required this.height,
     this.mainColor,
     this.play,
     this.innerColor,
     this.sec,
-    this.width,
+    required this.width,
     this.addSec,
   });
 
