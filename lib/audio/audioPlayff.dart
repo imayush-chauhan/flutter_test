@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 class AudioPlayerFF extends StatefulWidget {
-  final double width;
-  final double height;
-  final String url;
+  final double? width;
+  final double? height;
+  final String? url;
   final String? image;
   final bool? stop;
 
@@ -41,7 +41,7 @@ class _AudioPlayerFFState extends State<AudioPlayerFF>{
       });
     });
 
-    audioPlayer.setUrl(widget.url);
+    audioPlayer.setUrl(widget.url ?? "");
 
     audioPlayer.onAudioPositionChanged.listen((newDuration) {
       setState((){
@@ -51,7 +51,6 @@ class _AudioPlayerFFState extends State<AudioPlayerFF>{
 
     super.initState();
   }
-
 
   String formatTime(Duration duration){
     String twoDigits(int n) => n.toString().padLeft(2,"0");
@@ -69,8 +68,14 @@ class _AudioPlayerFFState extends State<AudioPlayerFF>{
   pause(){
     setState((){
       audioPlayer.stop();
-      // Navigator.of(context).pop();
+      Navigator.of(context).pop();
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    audioPlayer.dispose();
   }
 
   @override
@@ -131,7 +136,7 @@ class _AudioPlayerFFState extends State<AudioPlayerFF>{
                               await audioPlayer.pause();
                               print("pause");
                             }else{
-                              await audioPlayer.play(widget.url);
+                              await audioPlayer.play(widget.url ?? "");
                               print("play");
                             }
                           },

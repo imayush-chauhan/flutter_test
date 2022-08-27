@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
+import 'package:test_ayu/audio/audioPlayff.dart';
 
 class BlueFlutter extends StatefulWidget {
   const BlueFlutter({Key? key}) : super(key: key);
@@ -11,16 +11,6 @@ class BlueFlutter extends StatefulWidget {
 class _BlueFlutterState extends State<BlueFlutter> {
 
   bool searching = false;
-
-  final flutterReactiveBle = FlutterReactiveBle();
-
-  final Uuid serviceUuid = Uuid.parse("75C276C3-8F97-20BC-A143-B354244886D4");
-
-  scan(){
-    flutterReactiveBle.scanForDevices(withServices: [serviceUuid], scanMode: ScanMode.lowLatency).listen((device) {
-      print(device.name);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,15 +27,21 @@ class _BlueFlutterState extends State<BlueFlutter> {
 
             GestureDetector(
               onTap: (){
-                setState((){
-                  if(searching == false){
-                    searching = true;
-                    scan();
-                  }else{
-                    searching = false;
-                    flutterReactiveBle.deinitialize();
-                  }
-                });
+                Navigator.push(context, MaterialPageRoute(builder: (context){
+                  return AudioPlayerFF(
+                    url: "https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba-online-audio-converter.com_-1.wav",
+                    height: 200,
+                    width: 200,
+                    stop: false,
+                  );
+                }));
+                // setState((){
+                //   if(searching == false){
+                //     searching = true;
+                //   }else{
+                //     searching = false;
+                //   }
+                // });
               },
               child: Container(
                 height: mediaQW*0.125,

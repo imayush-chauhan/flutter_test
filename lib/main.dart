@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:test_ayu/audio/audioPlayff.dart';
 import 'package:test_ayu/bluetooth.dart';
-import 'package:test_ayu/screen/camera.dart';
-import 'package:test_ayu/screen/video.dart';
+
 
 void main() async{
 
@@ -35,7 +33,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-    home: GetVideo(),
+    home: BlueFlutter(),
     // home: GetImage(),
     // home: BlueFlutter(),
     // home: AudioPlayerFF(
