@@ -1,5 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:test_ayu/audio/audioPlayff.dart';
+import 'package:http/http.dart' as http;
 
 class BlueFlutter extends StatefulWidget {
   const BlueFlutter({Key? key}) : super(key: key);
@@ -9,6 +11,41 @@ class BlueFlutter extends StatefulWidget {
 }
 
 class _BlueFlutterState extends State<BlueFlutter> {
+
+  TextEditingController text = TextEditingController();
+
+  Map<String, dynamic>? responseJson;
+  
+  getData()async{
+    print("In");
+    
+    try{
+      
+      final response = await http.post(Uri.parse("https://api.deepai.org/api/text2img"),
+        headers: {
+          "api-key":"quickstart-QUdJIGlzIGNvbWluZy4uLi4K",
+          // "api-key":"6f943885-df19-464e-97fd-3074c314be72",
+        },
+        body: {
+          "text": "hulk playing pubg",
+        }
+      );
+
+      setState(() {
+        responseJson = json.decode(response.body);
+      });
+
+      print(responseJson);
+      
+    }catch(e){
+      print("ERROR: $e");
+    }
+    print("Out");
+    setState(() {
+
+    });
+    
+  }
 
   bool searching = false;
 
@@ -25,23 +62,11 @@ class _BlueFlutterState extends State<BlueFlutter> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
 
+            responseJson != null ?
+            Image.network(responseJson!["output_url"]) :
             GestureDetector(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context){
-                  return AudioPlayerFF(
-                    url: "https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba-online-audio-converter.com_-1.wav",
-                    height: 200,
-                    width: 200,
-                    stop: false,
-                  );
-                }));
-                // setState((){
-                //   if(searching == false){
-                //     searching = true;
-                //   }else{
-                //     searching = false;
-                //   }
-                // });
+                // getData();
               },
               child: Container(
                 height: mediaQW*0.125,
@@ -54,16 +79,8 @@ class _BlueFlutterState extends State<BlueFlutter> {
                 child: searching == false ?
                 Icon(Icons.bluetooth,color: Colors.white,) :
                 Icon(Icons.search,color: Colors.white,),
-
               ),
-            )
-
-            // MaterialButton(shape: BoxShape.circle,
-            //   height: mediaQW*0.1,
-            //   color: Colors.blue,
-            //   onPressed: (){},
-            //   child: Icon(Icons.bluetooth,color: Colors.white,),
-            // ),
+            ),
           ],
         ),
       ),

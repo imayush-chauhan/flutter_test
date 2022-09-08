@@ -20,7 +20,7 @@ class AudioPlayerFF extends StatefulWidget {
 }
 
 class _AudioPlayerFFState extends State<AudioPlayerFF>{
-  AudioPlayer audioPlayer = AudioPlayer(playerId: "0");
+  AudioPlayer audioPlayer = AudioPlayer();
 
   Duration duration = Duration.zero;
   Duration position = Duration.zero;
@@ -29,25 +29,33 @@ class _AudioPlayerFFState extends State<AudioPlayerFF>{
 
   @override
   void initState() {
-    audioPlayer.onPlayerStateChanged.listen((state) {
-      setState((){
-        Data.isPlaying = state.index;
-      });
-    });
+    try{
 
-    audioPlayer.onDurationChanged.listen((newDuration) {
-      setState((){
-        duration = newDuration;
+      audioPlayer.onPlayerStateChanged.listen((state) {
+        setState((){
+          Data.isPlaying = state.index;
+        });
       });
-    });
 
-    audioPlayer.setUrl(widget.url ?? "");
-
-    audioPlayer.onAudioPositionChanged.listen((newDuration) {
-      setState((){
-        position = newDuration;
+      audioPlayer.onDurationChanged.listen((newDuration) {
+        setState((){
+          duration = newDuration;
+        });
       });
-    });
+
+      audioPlayer.setUrl(widget.url ?? "");
+
+      audioPlayer.setVolume(1);
+
+      audioPlayer.onAudioPositionChanged.listen((newDuration) {
+        setState((){
+          position = newDuration;
+        });
+      });
+
+    }catch (e){
+      print("ERROR: $e");
+    }
 
     super.initState();
   }
@@ -136,8 +144,14 @@ class _AudioPlayerFFState extends State<AudioPlayerFF>{
                               await audioPlayer.pause();
                               print("pause");
                             }else{
-                              await audioPlayer.play(widget.url ?? "");
-                              print("play");
+                              try{
+                                await audioPlayer.play(widget.url!,isLocal: false).catchError((e){
+                                  print("Error: $e");
+                                });
+                                print("play");
+                              }catch (e){
+                                print("Error: $e");
+                              }
                             }
                           },
                           child: Container(
@@ -162,7 +176,7 @@ class _AudioPlayerFFState extends State<AudioPlayerFF>{
                     max: duration.inSeconds.toDouble(),
                     value: position.inSeconds.toDouble(),
                     onChanged: (_)async{
-                      final position =Duration(seconds: _.toInt());
+                      final position = Duration(seconds: _.toInt());
                       await audioPlayer.seek(position);
                       await audioPlayer.resume();
                     },

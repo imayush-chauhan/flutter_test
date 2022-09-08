@@ -6,7 +6,7 @@
 // import 'package:test_ayu/data/data.dart';
 //
 // class RazorPay extends StatefulWidget {
-//   const RazorPay({Key key}) : super(key: key);
+//   const RazorPay({Key? key}) : super(key: key);
 //
 //   @override
 //   State<RazorPay> createState() => _RazorPayState();
@@ -16,15 +16,15 @@
 //
 //   TextEditingController pay = TextEditingController();
 //   static const platform = const MethodChannel("razorpay_flutter");
-//   Razorpay _razorpay;
+//   Razorpay? _razorpay;
 //
 //   @override
 //   void initState() {
 //     super.initState();
 //     _razorpay = Razorpay();
-//     _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
-//     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
-//     _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+//     _razorpay!.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+//     _razorpay!.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+//     _razorpay!.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
 //   }
 //
 //   void _handlePaymentSuccess(PaymentSuccessResponse response) {
@@ -47,8 +47,8 @@
 //         ),
 //         headers: {
 //           "Content-Type": "application/json",
-//           "Authorization":
-//           "Basic ${base64Encode(utf8.encode('${Data.key}:${Data.secret_key}'))} "
+//           // "Authorization":
+//           // "Basic ${base64Encode(utf8.encode('${Data.key}:${Data.secret_key}'))} "
 //         },
 //         body: json.encode({
 //           "amount": Amount,
@@ -77,7 +77,7 @@
 //     };
 //
 //     try {
-//       _razorpay.open(options);
+//       _razorpay!.open(options);
 //     } catch (e) {
 //       debugPrint('Error: e');
 //     }
@@ -86,7 +86,7 @@
 //   @override
 //   void dispose() {
 //     super.dispose();
-//     _razorpay.clear();
+//     _razorpay!.clear();
 //   }
 //
 //   @override

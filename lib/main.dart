@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:test_ayu/audio/audioPlayff.dart';
 import 'package:test_ayu/bluetooth.dart';
+import 'package:test_ayu/screen/bluetoothSerial.dart';
+import 'package:test_ayu/screen/pay.dart';
+import 'package:test_ayu/screen/pdfPicker.dart';
+import 'package:test_ayu/screen/pdfViewer.dart';
+import 'package:test_ayu/screen/urlLauncherF.dart';
+import 'package:test_ayu/screen/videoPlayerFF.dart';
+import 'package:test_ayu/screen/videoplayer.dart';
+import 'package:test_ayu/screen/youtube_video.dart';
 
 
 void main() async{
@@ -28,15 +37,24 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Lamp Bluetooth',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-    home: BlueFlutter(),
+      home: UrlLauncherF(),
+      // home: VPYoutube(videoUrl: "https://www.youtube.com/watch?v=BBAyRBTfsOU",),
+      // home: BlueSerial(),
+    // home: TrainingVideo(videoUrl: "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4"),
+    // home: ChewieDemo(s: "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
+    // height: 100,
+    // width: 100,),
+    // home: BlueFlutter(),
     // home: GetImage(),
     // home: BlueFlutter(),
     // home: AudioPlayerFF(
+    //   width: 0.0,
+    //   height: 0.0,
     //   url: "https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba-online-audio-converter.com_-1.wav",
     //   image: "https://source.unsplash.com/random/1920x1080/?wallpaper,landscape",
     // ),
